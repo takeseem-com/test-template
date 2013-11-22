@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>table数据渲染</title>
+	</head>
+	<body>
+		<table>
+			<#if rows?size = 0>
+				<tr><td>无数据</td></tr>
+			<#else>
+				<#list rows as row>
+					<tr>
+						<td>${row.id}</td>
+						<td>${row.col1}</td>
+						<td>${row.col2?length}</td>
+						<td>${row?size}</td>
+						<td>${row_index}</td>
+					</tr>
+				</#list>
+			</#if>
+		</table>
+	</body>
+</html>
