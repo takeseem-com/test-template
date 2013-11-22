@@ -45,5 +45,6 @@ public abstract class AbstractEngine {
 		}
 	}
 
+	public abstract String getKey();
 	public abstract void procTable(boolean info) throws Exception;
 }

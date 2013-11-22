@@ -6,19 +6,19 @@
 	</head>
 	<body>
 		<table>
-			<#if rows?size = 0>
+			#if(${rows.size()} ==0)
 				<tr><td>无数据</td></tr>
-			<#else>
-				<#list rows as row>
+			#else
+				#foreach($row in $rows)
 					<tr>
 						<td>${row.id}</td>
 						<td>${row.col1}</td>
-						<td>${row.col2?length}</td>
-						<td>${row?size}</td>
-						<td>${row_index}</td>
+						<td>${row.col2.length()}</td>
+						<td>${row.size()}</td>
+						<td>$velocityCount</td>
 					</tr>
-				</#list>
-			</#if>
+				#end
+			#end
 		</table>
 	</body>
 </html>

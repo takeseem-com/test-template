@@ -29,9 +29,15 @@ public class FreemarkerEngine extends AbstractEngine {
 	}
 
 	@Override
+	public String getKey() {
+		return "FM";
+	}
+	
+	@Override
 	public void procTable(boolean info) throws Exception {
 		reset();
 		cfg.getTemplate("table.html").process(model, writer);
 		if (info) logger.info("TABLE:\n{}\n", getOutText());
 	}
+
 }
