@@ -6,6 +6,8 @@
 package com.takeseem.test.template;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +20,7 @@ import org.slf4j.LoggerFactory;
 
 public class Test {
 	private static Logger logger = LoggerFactory.getLogger(Test.class);
+	private static DecimalFormat format = new DecimalFormat("0.000");
 	private static Map<String, Object> model = new HashMap<>();
 	private static List<AbstractEngine> engines = new ArrayList<>();
 	/** 累加测试结果Map&lt;测试项目, Map&lt;引擎, [size, 耗时]&gt;&gt; */
@@ -41,15 +44,19 @@ public class Test {
 				engine.procTable(false);
 			}
 			det = System.currentTimeMillis() - start;
-			long[] testData = getData(engine.getKey(), "table");
+			logger.info(getInfo(engine.getKey(), "TABLE", max, det));
+			
+			long[] testData = getData(engine.getKey(), "TABLE");
 			testData[0] += max;
 			testData[1] += det;
-			logger.info("{} TABLE size: {}\t{}s\t1000size: {}ms",
-					engine.getKey(), max, det/1000f, det*1000f/max);
-			
 		}
 	}
 	
+	private static String getInfo(String engineKey, String testName, long size, long time) {
+		return testName + "\t" + engineKey + "\t"
+				+ NumberFormat.getInstance().format(size/1000f) + "K\t" + format.format(time/1000f) + "s\t"
+				+ format.format(time*1f/size) + "ms\t" + (long) (size*1000f/time);
+	}
 	private static void pause(long timeout) throws InterruptedException {
 		final Object lock = new Object();
 		synchronized (lock) {
@@ -97,11 +104,11 @@ public class Test {
 		}
 		
 		System.out.println("最终测试结果：");
-		for (Entry<String, Map<String, long[]>> entry : all.entrySet()) {
-			for (Entry<String, long[]> entry2 : entry.getValue().entrySet()) {
-				long[] data = entry2.getValue();
-				System.out.println(entry.getKey() + " " + entry2.getKey() + "\t"
-						+ data[0]/10000f + "万\t" + data[1]/1000f + "s\t" + data[1]*10f/data[0] + "s/万");
+		System.out.println("测试项目\t引擎\t生成次数\t总耗时\t平均耗时\t1s处理");
+		for (Entry<String, Map<String, long[]>> testEntry : all.entrySet()) {
+			for (Entry<String, long[]> engineEntry : testEntry.getValue().entrySet()) {
+				long[] data = engineEntry.getValue();
+				System.out.println(getInfo(engineEntry.getKey(), testEntry.getKey(), data[0], data[1]));
 			}
 		}
 		
