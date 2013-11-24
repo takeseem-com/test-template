@@ -93,6 +93,12 @@
 			<artifactId>velocity</artifactId>
 			<version>1.7</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.github.subchen</groupId>
+			<artifactId>jetbrick-template</artifactId>
+			<version>1.0.2</version>
+		</dependency>
 	</dependencies>
 	
 	<dependencyManagement>
