@@ -89,11 +89,15 @@ public class Test {
 		}
 		model.put("rows", rows);
 		
-		
+
 		engines.add(new FreemarkerEngine(model));
+		engines.add(new JetbrickEngine(model));
 		engines.add(new VelocityEngine(model));
 		for (AbstractEngine engine : engines) {
 			engine.procTable(true);
+		}
+		for (int i = 0; i < 3; i++) {
+			exec();
 		}
 		logger.info("系统预热结束");
 		System.out.println("回车后开始测试：");

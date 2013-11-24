@@ -1,3 +1,4 @@
+#define(List<Map<String, Object>> rows)
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,17 +7,17 @@
 	</head>
 	<body>
 		<table>
-			#if(${rows.size()} == 0)
+			#if(rows.size() == 0)
 				<tr><td>无数据</td></tr>
 			#else
-				#foreach($row in $rows)
-					<tr>
+				#for(Map row : rows)
+				    <tr>
 						<td>${row.id}</td>
 						<td>${row.col1}</td>
 						<td>${row.col2}</td>
 						<td>${row.size()}</td>
 					</tr>
-				#end
+			    #end
 			#end
 		</table>
 	</body>

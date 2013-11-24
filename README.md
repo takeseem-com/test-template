@@ -17,6 +17,7 @@
 <pre>
 参数：(-server -Xms1g -Xmx1g)：
 测试项目	引擎	生成次数	总耗时	平均耗时	1s处理
-TABLE	FM	100K	10.582s	0.106ms	9450
-TABLE	VM	100K	18.876s	0.189ms	5297
+TABLE	FM	130K	10.303s	0.079ms	12617
+TABLE	JT	130K	3.022s	0.023ms	43017
+TABLE	VM	130K	9.642s	0.074ms	13482
 </pre>

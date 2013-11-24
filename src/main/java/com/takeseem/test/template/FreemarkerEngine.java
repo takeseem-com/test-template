@@ -5,11 +5,11 @@
  */
 package com.takeseem.test.template;
 
+import java.io.File;
 import java.util.Map;
 
 import com.takeseem.test.template.util.UtilIO;
 
-import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 
@@ -21,11 +21,8 @@ public class FreemarkerEngine extends AbstractEngine {
 	
 	public FreemarkerEngine(Map<String, Object> model) throws Exception {
 		super(model);
-		
 		cfg.setObjectWrapper(new DefaultObjectWrapper());
-		StringTemplateLoader templateLoader = new StringTemplateLoader();
-		templateLoader.putTemplate("table.html", UtilIO.getResourceAsText("ftl/table.html"));
-		cfg.setTemplateLoader(templateLoader);
+		cfg.setDirectoryForTemplateLoading(new File(UtilIO.getResource("ftl").getPath()));
 	}
 
 	@Override
@@ -37,7 +34,7 @@ public class FreemarkerEngine extends AbstractEngine {
 	public void procTable(boolean info) throws Exception {
 		reset();
 		cfg.getTemplate("table.html").process(model, writer);
-		if (info) logger.info("TABLE:\n{}\n", getOutText());
+		if (info) logger.info("{} TABLE:\n{}\n", getKey(), getOutText());
 	}
 
 }
